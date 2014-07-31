@@ -486,8 +486,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
     self.windowLevel = [[[[UIApplication sharedApplication] delegate] window] windowLevel];
     
     // Update windowLevel to make sure status bar does not interfere with the notification
-    [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:UIWindowLevelStatusBar+1];
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     // add the notification to the screen
     [window.subviews.lastObject addSubview:self];
     
@@ -584,14 +583,13 @@ static const CGFloat kColorAdjustmentLight = 0.35;
                 snapBehaviour.damping = 0.75f;
                 [self.animator addBehavior:snapBehaviour];
                 
-                [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:self.windowLevel];
                 break;
             }
         }
         
     } else {
         
-        [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:self.windowLevel];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
         
         [self _dismissBlockHandler];
     }
@@ -685,7 +683,8 @@ static const CGFloat kColorAdjustmentLight = 0.35;
     
     self.animator.delegate = nil;
     self.animator = nil;
-    [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:self.windowLevel];
+    //    [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:self.windowLevel];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
     [self removeFromSuperview];
     
 }
