@@ -89,7 +89,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
 {
     // If the App has a keyWindow, get it, else get the 'top'-most window in the App's hierarchy.
     UIWindow *window = [self _topAppWindow];
-
+    
     // Now get the 'top'-most object in that window and use its width for the Notification.
     UIView *topSubview = [[window subviews] lastObject];
     CGRect notificationFrame = CGRectMake(0, 0, CGRectGetWidth(topSubview.bounds), kNotificationHeight);
@@ -409,13 +409,13 @@ static const CGFloat kColorAdjustmentLight = 0.35;
                 [self.backgroundView addSubview:self.closeButton];
                 
                 self.closeButton.titleLabel.font = [UIFont systemFontOfSize:15.0]; // custom font!
-
+                
             }
             
             break;
         }
             
-        // deliberately grabbing one and two button states
+            // deliberately grabbing one and two button states
         case MPGNotificationButtonConfigrationOneButton:
         case MPGNotificationButtonConfigrationTwoButton: {
             
@@ -446,7 +446,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
             
             break;
         }
-
+            
     }
     
     [self setNeedsLayout];
@@ -509,7 +509,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
         case MPGNotificationAnimationTypeDrop: {
             
             self.backgroundView.center = CGPointMake(self.center.x,
-                                                       self.center.y - CGRectGetHeight(self.bounds));
+                                                     self.center.y - CGRectGetHeight(self.bounds));
             
             self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
             
@@ -538,7 +538,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
         case MPGNotificationAnimationTypeSnap: {
             
             self.backgroundView.center = CGPointMake(self.center.x,
-                                                       self.center.y - 2 * CGRectGetHeight(self.bounds));
+                                                     self.center.y - 2 * CGRectGetHeight(self.bounds));
             
             self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
             
@@ -548,7 +548,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
             UISnapBehavior *snapBehaviour = [[UISnapBehavior alloc] initWithItem:self.backgroundView snapToPoint:centerPoint];
             snapBehaviour.damping = 0.50f;
             [self.animator addBehavior:snapBehaviour];
-
+            
             [self _startDismissTimerIfSet];
             break;
         }
@@ -564,16 +564,14 @@ static const CGFloat kColorAdjustmentLight = 0.35;
     if (animated) {
         
         switch (self.animationType) {
-            
-            // deliberately capturing 2 cases
+                
+                // deliberately capturing 2 cases
             case MPGNotificationAnimationTypeLinear:
             case MPGNotificationAnimationTypeDrop: {
                 
                 [UIView animateWithDuration:kLinearAnimationTime animations:^{
                     self.contentOffset = CGPointMake(0, CGRectGetHeight(self.bounds));
                 } completion:^(BOOL finished){
-                    [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:self.windowLevel];
-                    
                     [self _destroyNotification];
                 }];
                 break;
@@ -687,7 +685,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
     
     self.animator.delegate = nil;
     self.animator = nil;
-    
+    [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:self.windowLevel];
     [self removeFromSuperview];
     
 }
